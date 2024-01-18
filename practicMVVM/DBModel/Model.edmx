@@ -1,0 +1,1038 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище KingITModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="IdEmployee" />
+          </Key>
+          <Property Name="IdEmployee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="patronymic" Type="nvarchar" MaxLength="20" />
+          <Property Name="IdPositions" Type="int" Nullable="false" />
+          <Property Name="employeePhone" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="sex" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="photo" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="pavilions">
+          <Key>
+            <PropertyRef Name="IdPavilions" />
+            <PropertyRef Name="IdSM" />
+          </Key>
+          <Property Name="IdPavilions" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="IdSM" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="floor" Type="int" />
+          <Property Name="square" Type="decimal" Precision="5" Scale="1" Nullable="false" />
+          <Property Name="costMeter" Type="money" Nullable="false" />
+          <Property Name="coefficientAddedValue" Type="decimal" Precision="5" Scale="1" />
+          <Property Name="IdPavilionsStatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="positions">
+          <Key>
+            <PropertyRef Name="IdPositions" />
+          </Key>
+          <Property Name="IdPositions" Type="int" Nullable="false" />
+          <Property Name="namePositions" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rental">
+          <Key>
+            <PropertyRef Name="IdRental" />
+          </Key>
+          <Property Name="IdRental" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPavilions" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="beginLease" Type="date" Nullable="false" />
+          <Property Name="endLease" Type="date" Nullable="false" />
+          <Property Name="IdTenats" Type="int" Nullable="false" />
+          <Property Name="IdEmployee" Type="int" Nullable="false" />
+          <Property Name="IdSM" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="IdRentalStatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="shoppingMalls">
+          <Key>
+            <PropertyRef Name="IdSM" />
+          </Key>
+          <Property Name="IdSM" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="nameSM" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="numberPavilions" Type="int" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="cost" Type="money" Nullable="false" />
+          <Property Name="coefficientAddedValue" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="numberFloors" Type="int" Nullable="false" />
+          <Property Name="IdSMStatus" Type="int" Nullable="false" />
+          <Property Name="photo" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="statusPavilions">
+          <Key>
+            <PropertyRef Name="IdPavilionsStatus" />
+          </Key>
+          <Property Name="IdPavilionsStatus" Type="int" Nullable="false" />
+          <Property Name="namePavilions" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="statusRental">
+          <Key>
+            <PropertyRef Name="IdRentalStatus" />
+          </Key>
+          <Property Name="IdRentalStatus" Type="int" Nullable="false" />
+          <Property Name="nameRental" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="statusSM">
+          <Key>
+            <PropertyRef Name="IdSMStatus" />
+          </Key>
+          <Property Name="IdSMStatus" Type="int" Nullable="false" />
+          <Property Name="nameStatus" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tenats">
+          <Key>
+            <PropertyRef Name="IdTenats" />
+          </Key>
+          <Property Name="IdTenats" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameFirms" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="tenatsPhone" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="photo" Type="varbinary(max)" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "KingIT.dbo.Готовая аренда" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Готовая аренда">
+          <Key>
+            <PropertyRef Name="ID Аренды" />
+            <PropertyRef Name="№ Павильона" />
+            <PropertyRef Name="Начало Аренды" />
+            <PropertyRef Name="Окончание Аренды" />
+            <PropertyRef Name="ID Арендатора" />
+            <PropertyRef Name="ID Сотрудник" />
+            <PropertyRef Name="ID ТЦ" />
+            <PropertyRef Name="Статус ТЦ" />
+          </Key>
+          <Property Name="ID Аренды" Type="int" Nullable="false" />
+          <Property Name="№ Павильона" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Начало Аренды" Type="date" Nullable="false" />
+          <Property Name="Окончание Аренды" Type="date" Nullable="false" />
+          <Property Name="ID Арендатора" Type="int" Nullable="false" />
+          <Property Name="ID Сотрудник" Type="int" Nullable="false" />
+          <Property Name="ID ТЦ" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Статус ТЦ" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "KingIT.dbo.Готовое ТЦ" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Готовое ТЦ">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Название" />
+            <PropertyRef Name="Кол  Повильонов" />
+            <PropertyRef Name="Город" />
+            <PropertyRef Name="Стоимость" />
+            <PropertyRef Name="Кооф  Добавочной Стоимости" />
+            <PropertyRef Name="Этажность" />
+            <PropertyRef Name="Статус ТЦ" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Название" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Кол  Повильонов" Type="int" Nullable="false" />
+          <Property Name="Город" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Стоимость" Type="money" Nullable="false" />
+          <Property Name="Кооф  Добавочной Стоимости" Type="float" Nullable="false" />
+          <Property Name="Этажность" Type="int" Nullable="false" />
+          <Property Name="Статус ТЦ" Type="int" Nullable="false" />
+          <Property Name="Фото" Type="image" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "KingIT.dbo.Готовые арендаторы" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Готовые арендаторы">
+          <Property Name="ID Арендатора" Type="varchar" MaxLength="50" />
+          <Property Name="Название Номер" Type="varchar" MaxLength="50" />
+          <Property Name="Столбец 2" Type="varchar" MaxLength="50" />
+          <Property Name="Адрес" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "KingIT.dbo.Готовые должности" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Готовые должности">
+          <Property Name="ID " Type="varchar" MaxLength="50" />
+          <Property Name="Должность" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "KingIT.dbo.Готовые павильоны" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Готовые павильоны">
+          <Key>
+            <PropertyRef Name="№ Павильона" />
+            <PropertyRef Name="ID Павильона" />
+            <PropertyRef Name="Площадь" />
+            <PropertyRef Name="Стоимость за кв м" />
+            <PropertyRef Name="Кооф  Добавочной стоимости" />
+            <PropertyRef Name="Статус Павильона" />
+          </Key>
+          <Property Name="№ Павильона" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ID Павильона" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Этаж" Type="int" />
+          <Property Name="Площадь" Type="float" Nullable="false" />
+          <Property Name="Стоимость за кв м" Type="money" Nullable="false" />
+          <Property Name="Кооф  Добавочной стоимости" Type="float" Nullable="false" />
+          <Property Name="Статус Павильона" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "KingIT.dbo.Готовые сотрудники" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Готовые сотрудники">
+          <Property Name="ID" Type="varchar" MaxLength="50" />
+          <Property Name="Логин" Type="varchar" MaxLength="50" />
+          <Property Name="Пароль" Type="varchar" MaxLength="50" />
+          <Property Name="Фамилия" Type="varchar" MaxLength="50" />
+          <Property Name="Имя" Type="varchar" MaxLength="50" />
+          <Property Name="Отчество" Type="varchar" MaxLength="50" />
+          <Property Name="ID должность" Type="varchar" MaxLength="50" />
+          <Property Name="Номер телефона" Type="varchar" MaxLength="50" />
+          <Property Name="Пол" Type="varchar" MaxLength="50" />
+          <Property Name="Фото" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "KingIT.dbo.Статус аренды" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Статус аренды">
+          <Property Name="ID АРЕНДЫ" Type="varchar" MaxLength="50" />
+          <Property Name="Название статуса аренды" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "KingIT.dbo.Статус павильона" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Статус павильона">
+          <Property Name="ID " Type="varchar" MaxLength="50" />
+          <Property Name="Статус павильона" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "KingIT.dbo.Статус ТЦ" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Статус ТЦ">
+          <Property Name="ID Статуса" Type="varchar" MaxLength="50" />
+          <Property Name="Статус ТЦ" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <Association Name="FK__employee__IdPosi__41248F15">
+          <End Role="positions" Type="Self.positions" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="positions">
+              <PropertyRef Name="IdPositions" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="IdPositions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pavilions__IdPav__44F51FF9">
+          <End Role="statusPavilions" Type="Self.statusPavilions" Multiplicity="1" />
+          <End Role="pavilions" Type="Self.pavilions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusPavilions">
+              <PropertyRef Name="IdPavilionsStatus" />
+            </Principal>
+            <Dependent Role="pavilions">
+              <PropertyRef Name="IdPavilionsStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pavilions__IdSM__4400FBC0">
+          <End Role="shoppingMalls" Type="Self.shoppingMalls" Multiplicity="1" />
+          <End Role="pavilions" Type="Self.pavilions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shoppingMalls">
+              <PropertyRef Name="IdSM" />
+            </Principal>
+            <Dependent Role="pavilions">
+              <PropertyRef Name="IdSM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rental__49B9D516">
+          <End Role="pavilions" Type="Self.pavilions" Multiplicity="1" />
+          <End Role="rental" Type="Self.rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pavilions">
+              <PropertyRef Name="IdSM" />
+              <PropertyRef Name="IdPavilions" />
+            </Principal>
+            <Dependent Role="rental">
+              <PropertyRef Name="IdSM" />
+              <PropertyRef Name="IdPavilions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rental__IdEmploy__48C5B0DD">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="rental" Type="Self.rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="rental">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rental__IdRental__4AADF94F">
+          <End Role="statusRental" Type="Self.statusRental" Multiplicity="1" />
+          <End Role="rental" Type="Self.rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusRental">
+              <PropertyRef Name="IdRentalStatus" />
+            </Principal>
+            <Dependent Role="rental">
+              <PropertyRef Name="IdRentalStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rental__IdTenats__47D18CA4">
+          <End Role="tenats" Type="Self.tenats" Multiplicity="1" />
+          <End Role="rental" Type="Self.rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tenats">
+              <PropertyRef Name="IdTenats" />
+            </Principal>
+            <Dependent Role="rental">
+              <PropertyRef Name="IdTenats" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__shoppingM__IdSMS__3C5FD9F8">
+          <End Role="statusSM" Type="Self.statusSM" Multiplicity="1" />
+          <End Role="shoppingMalls" Type="Self.shoppingMalls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusSM">
+              <PropertyRef Name="IdSMStatus" />
+            </Principal>
+            <Dependent Role="shoppingMalls">
+              <PropertyRef Name="IdSMStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="rental1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_pavilion" Type="char" Mode="In" />
+          <Parameter Name="id_shopping_center" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
+        <Function Name="RentOrBookPavilion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_pavilion" Type="char" Mode="In" />
+          <Parameter Name="id_shopping_center" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="updateRentalPavilion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_pavilion" Type="char" Mode="In" />
+          <Parameter Name="id_shopping_center" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище KingITModelContainer">
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pavilions" EntityType="Self.pavilions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="positions" EntityType="Self.positions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rental" EntityType="Self.rental" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shoppingMalls" EntityType="Self.shoppingMalls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="statusPavilions" EntityType="Self.statusPavilions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="statusRental" EntityType="Self.statusRental" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="statusSM" EntityType="Self.statusSM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tenats" EntityType="Self.tenats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Готовая аренда" EntityType="Self.Готовая аренда" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Готовая аренда].[ID Аренды] AS [ID Аренды], 
+    [Готовая аренда].[№ Павильона] AS [№ Павильона], 
+    [Готовая аренда].[Начало Аренды] AS [Начало Аренды], 
+    [Готовая аренда].[Окончание Аренды] AS [Окончание Аренды], 
+    [Готовая аренда].[ID Арендатора] AS [ID Арендатора], 
+    [Готовая аренда].[ID Сотрудник] AS [ID Сотрудник], 
+    [Готовая аренда].[ID ТЦ] AS [ID ТЦ], 
+    [Готовая аренда].[Статус ТЦ] AS [Статус ТЦ]
+    FROM [dbo].[Готовая аренда] AS [Готовая аренда]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Готовое ТЦ" EntityType="Self.Готовое ТЦ" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Готовое ТЦ].[ID] AS [ID], 
+    [Готовое ТЦ].[Название] AS [Название], 
+    [Готовое ТЦ].[Кол  Повильонов] AS [Кол  Повильонов], 
+    [Готовое ТЦ].[Город] AS [Город], 
+    [Готовое ТЦ].[Стоимость] AS [Стоимость], 
+    [Готовое ТЦ].[Кооф  Добавочной Стоимости] AS [Кооф  Добавочной Стоимости], 
+    [Готовое ТЦ].[Этажность] AS [Этажность], 
+    [Готовое ТЦ].[Статус ТЦ] AS [Статус ТЦ], 
+    [Готовое ТЦ].[Фото] AS [Фото]
+    FROM [dbo].[Готовое ТЦ] AS [Готовое ТЦ]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Готовые павильоны" EntityType="Self.Готовые павильоны" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Готовые павильоны].[№ Павильона] AS [№ Павильона], 
+    [Готовые павильоны].[ID Павильона] AS [ID Павильона], 
+    [Готовые павильоны].[Этаж] AS [Этаж], 
+    [Готовые павильоны].[Площадь] AS [Площадь], 
+    [Готовые павильоны].[Стоимость за кв м] AS [Стоимость за кв м], 
+    [Готовые павильоны].[Кооф  Добавочной стоимости] AS [Кооф  Добавочной стоимости], 
+    [Готовые павильоны].[Статус Павильона] AS [Статус Павильона]
+    FROM [dbo].[Готовые павильоны] AS [Готовые павильоны]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__employee__IdPosi__41248F15" Association="Self.FK__employee__IdPosi__41248F15">
+            <End Role="positions" EntitySet="positions" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pavilions__IdPav__44F51FF9" Association="Self.FK__pavilions__IdPav__44F51FF9">
+            <End Role="statusPavilions" EntitySet="statusPavilions" />
+            <End Role="pavilions" EntitySet="pavilions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pavilions__IdSM__4400FBC0" Association="Self.FK__pavilions__IdSM__4400FBC0">
+            <End Role="shoppingMalls" EntitySet="shoppingMalls" />
+            <End Role="pavilions" EntitySet="pavilions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rental__49B9D516" Association="Self.FK__rental__49B9D516">
+            <End Role="pavilions" EntitySet="pavilions" />
+            <End Role="rental" EntitySet="rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rental__IdEmploy__48C5B0DD" Association="Self.FK__rental__IdEmploy__48C5B0DD">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="rental" EntitySet="rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rental__IdRental__4AADF94F" Association="Self.FK__rental__IdRental__4AADF94F">
+            <End Role="statusRental" EntitySet="statusRental" />
+            <End Role="rental" EntitySet="rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rental__IdTenats__47D18CA4" Association="Self.FK__rental__IdTenats__47D18CA4">
+            <End Role="tenats" EntitySet="tenats" />
+            <End Role="rental" EntitySet="rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK__shoppingM__IdSMS__3C5FD9F8" Association="Self.FK__shoppingM__IdSMS__3C5FD9F8">
+            <End Role="statusSM" EntitySet="statusSM" />
+            <End Role="shoppingMalls" EntitySet="shoppingMalls" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KingITModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="IdEmployee" />
+          </Key>
+          <Property Name="IdEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="patronymic" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IdPositions" Type="Int32" Nullable="false" />
+          <Property Name="employeePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="positions" Relationship="Self.FK__employee__IdPosi__41248F15" FromRole="employee" ToRole="positions" />
+          <NavigationProperty Name="rental" Relationship="Self.FK__rental__IdEmploy__48C5B0DD" FromRole="employee" ToRole="rental" />
+        </EntityType>
+        <EntityType Name="pavilions">
+          <Key>
+            <PropertyRef Name="IdPavilions" />
+            <PropertyRef Name="IdSM" />
+          </Key>
+          <Property Name="IdPavilions" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdSM" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="floor" Type="Int32" />
+          <Property Name="square" Type="Decimal" Precision="5" Scale="1" Nullable="false" />
+          <Property Name="costMeter" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="coefficientAddedValue" Type="Decimal" Precision="5" Scale="1" />
+          <Property Name="IdPavilionsStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="statusPavilions" Relationship="Self.FK__pavilions__IdPav__44F51FF9" FromRole="pavilions" ToRole="statusPavilions" />
+          <NavigationProperty Name="shoppingMalls" Relationship="Self.FK__pavilions__IdSM__4400FBC0" FromRole="pavilions" ToRole="shoppingMalls" />
+          <NavigationProperty Name="rental" Relationship="Self.FK__rental__49B9D516" FromRole="pavilions" ToRole="rental" />
+        </EntityType>
+        <EntityType Name="positions">
+          <Key>
+            <PropertyRef Name="IdPositions" />
+          </Key>
+          <Property Name="IdPositions" Type="Int32" Nullable="false" />
+          <Property Name="namePositions" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="employee" Relationship="Self.FK__employee__IdPosi__41248F15" FromRole="positions" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="rental">
+          <Key>
+            <PropertyRef Name="IdRental" />
+          </Key>
+          <Property Name="IdRental" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPavilions" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="beginLease" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="endLease" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IdTenats" Type="Int32" Nullable="false" />
+          <Property Name="IdEmployee" Type="Int32" Nullable="false" />
+          <Property Name="IdSM" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdRentalStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employee" Relationship="Self.FK__rental__IdEmploy__48C5B0DD" FromRole="rental" ToRole="employee" />
+          <NavigationProperty Name="pavilions" Relationship="Self.FK__rental__49B9D516" FromRole="rental" ToRole="pavilions" />
+          <NavigationProperty Name="statusRental" Relationship="Self.FK__rental__IdRental__4AADF94F" FromRole="rental" ToRole="statusRental" />
+          <NavigationProperty Name="tenats" Relationship="Self.FK__rental__IdTenats__47D18CA4" FromRole="rental" ToRole="tenats" />
+        </EntityType>
+        <EntityType Name="shoppingMalls">
+          <Key>
+            <PropertyRef Name="IdSM" />
+          </Key>
+          <Property Name="IdSM" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nameSM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="numberPavilions" Type="Int32" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="coefficientAddedValue" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="numberFloors" Type="Int32" Nullable="false" />
+          <Property Name="IdSMStatus" Type="Int32" Nullable="false" />
+          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="pavilions" Relationship="Self.FK__pavilions__IdSM__4400FBC0" FromRole="shoppingMalls" ToRole="pavilions" />
+          <NavigationProperty Name="statusSM" Relationship="Self.FK__shoppingM__IdSMS__3C5FD9F8" FromRole="shoppingMalls" ToRole="statusSM" />
+        </EntityType>
+        <EntityType Name="statusPavilions">
+          <Key>
+            <PropertyRef Name="IdPavilionsStatus" />
+          </Key>
+          <Property Name="IdPavilionsStatus" Type="Int32" Nullable="false" />
+          <Property Name="namePavilions" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="pavilions" Relationship="Self.FK__pavilions__IdPav__44F51FF9" FromRole="statusPavilions" ToRole="pavilions" />
+        </EntityType>
+        <EntityType Name="statusRental">
+          <Key>
+            <PropertyRef Name="IdRentalStatus" />
+          </Key>
+          <Property Name="IdRentalStatus" Type="Int32" Nullable="false" />
+          <Property Name="nameRental" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="rental" Relationship="Self.FK__rental__IdRental__4AADF94F" FromRole="statusRental" ToRole="rental" />
+        </EntityType>
+        <EntityType Name="statusSM">
+          <Key>
+            <PropertyRef Name="IdSMStatus" />
+          </Key>
+          <Property Name="IdSMStatus" Type="Int32" Nullable="false" />
+          <Property Name="nameStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="shoppingMalls" Relationship="Self.FK__shoppingM__IdSMS__3C5FD9F8" FromRole="statusSM" ToRole="shoppingMalls" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tenats">
+          <Key>
+            <PropertyRef Name="IdTenats" />
+          </Key>
+          <Property Name="IdTenats" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameFirms" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tenatsPhone" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="rental" Relationship="Self.FK__rental__IdTenats__47D18CA4" FromRole="tenats" ToRole="rental" />
+        </EntityType>
+        <EntityType Name="Готовая_аренда">
+          <Key>
+            <PropertyRef Name="ID_Аренды" />
+            <PropertyRef Name="C__Павильона" />
+            <PropertyRef Name="Начало_Аренды" />
+            <PropertyRef Name="Окончание_Аренды" />
+            <PropertyRef Name="ID_Арендатора" />
+            <PropertyRef Name="ID_Сотрудник" />
+            <PropertyRef Name="ID_ТЦ" />
+            <PropertyRef Name="Статус_ТЦ" />
+          </Key>
+          <Property Name="ID_Аренды" Type="Int32" Nullable="false" />
+          <Property Name="C__Павильона" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Начало_Аренды" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Окончание_Аренды" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ID_Арендатора" Type="Int32" Nullable="false" />
+          <Property Name="ID_Сотрудник" Type="Int32" Nullable="false" />
+          <Property Name="ID_ТЦ" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Статус_ТЦ" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Готовое_ТЦ">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Название" />
+            <PropertyRef Name="Кол__Повильонов" />
+            <PropertyRef Name="Город" />
+            <PropertyRef Name="Стоимость" />
+            <PropertyRef Name="Кооф__Добавочной_Стоимости" />
+            <PropertyRef Name="Этажность" />
+            <PropertyRef Name="Статус_ТЦ" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Кол__Повильонов" Type="Int32" Nullable="false" />
+          <Property Name="Город" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Стоимость" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Кооф__Добавочной_Стоимости" Type="Double" Nullable="false" />
+          <Property Name="Этажность" Type="Int32" Nullable="false" />
+          <Property Name="Статус_ТЦ" Type="Int32" Nullable="false" />
+          <Property Name="Фото" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Готовые_павильоны">
+          <Key>
+            <PropertyRef Name="C__Павильона" />
+            <PropertyRef Name="ID_Павильона" />
+            <PropertyRef Name="Площадь" />
+            <PropertyRef Name="Стоимость_за_кв_м" />
+            <PropertyRef Name="Кооф__Добавочной_стоимости" />
+            <PropertyRef Name="Статус_Павильона" />
+          </Key>
+          <Property Name="C__Павильона" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Павильона" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Этаж" Type="Int32" />
+          <Property Name="Площадь" Type="Double" Nullable="false" />
+          <Property Name="Стоимость_за_кв_м" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Кооф__Добавочной_стоимости" Type="Double" Nullable="false" />
+          <Property Name="Статус_Павильона" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__employee__IdPosi__41248F15">
+          <End Role="positions" Type="Self.positions" Multiplicity="1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="positions">
+              <PropertyRef Name="IdPositions" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="IdPositions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rental__IdEmploy__48C5B0DD">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="rental" Type="Self.rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="rental">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pavilions__IdPav__44F51FF9">
+          <End Role="statusPavilions" Type="Self.statusPavilions" Multiplicity="1" />
+          <End Role="pavilions" Type="Self.pavilions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusPavilions">
+              <PropertyRef Name="IdPavilionsStatus" />
+            </Principal>
+            <Dependent Role="pavilions">
+              <PropertyRef Name="IdPavilionsStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pavilions__IdSM__4400FBC0">
+          <End Role="shoppingMalls" Type="Self.shoppingMalls" Multiplicity="1" />
+          <End Role="pavilions" Type="Self.pavilions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shoppingMalls">
+              <PropertyRef Name="IdSM" />
+            </Principal>
+            <Dependent Role="pavilions">
+              <PropertyRef Name="IdSM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rental__49B9D516">
+          <End Role="pavilions" Type="Self.pavilions" Multiplicity="1" />
+          <End Role="rental" Type="Self.rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pavilions">
+              <PropertyRef Name="IdSM" />
+              <PropertyRef Name="IdPavilions" />
+            </Principal>
+            <Dependent Role="rental">
+              <PropertyRef Name="IdSM" />
+              <PropertyRef Name="IdPavilions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rental__IdRental__4AADF94F">
+          <End Role="statusRental" Type="Self.statusRental" Multiplicity="1" />
+          <End Role="rental" Type="Self.rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusRental">
+              <PropertyRef Name="IdRentalStatus" />
+            </Principal>
+            <Dependent Role="rental">
+              <PropertyRef Name="IdRentalStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rental__IdTenats__47D18CA4">
+          <End Role="tenats" Type="Self.tenats" Multiplicity="1" />
+          <End Role="rental" Type="Self.rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tenats">
+              <PropertyRef Name="IdTenats" />
+            </Principal>
+            <Dependent Role="rental">
+              <PropertyRef Name="IdTenats" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__shoppingM__IdSMS__3C5FD9F8">
+          <End Role="statusSM" Type="Self.statusSM" Multiplicity="1" />
+          <End Role="shoppingMalls" Type="Self.shoppingMalls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="statusSM">
+              <PropertyRef Name="IdSMStatus" />
+            </Principal>
+            <Dependent Role="shoppingMalls">
+              <PropertyRef Name="IdSMStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KingITEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="employee" EntityType="Self.employee" />
+          <EntitySet Name="pavilions" EntityType="Self.pavilions" />
+          <EntitySet Name="positions" EntityType="Self.positions" />
+          <EntitySet Name="rental" EntityType="Self.rental" />
+          <EntitySet Name="shoppingMalls" EntityType="Self.shoppingMalls" />
+          <EntitySet Name="statusPavilions" EntityType="Self.statusPavilions" />
+          <EntitySet Name="statusRental" EntityType="Self.statusRental" />
+          <EntitySet Name="statusSM" EntityType="Self.statusSM" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tenats" EntityType="Self.tenats" />
+          <EntitySet Name="Готовая_аренда" EntityType="Self.Готовая_аренда" />
+          <EntitySet Name="Готовое_ТЦ" EntityType="Self.Готовое_ТЦ" />
+          <EntitySet Name="Готовые_павильоны" EntityType="Self.Готовые_павильоны" />
+          <AssociationSet Name="FK__employee__IdPosi__41248F15" Association="Self.FK__employee__IdPosi__41248F15">
+            <End Role="positions" EntitySet="positions" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rental__IdEmploy__48C5B0DD" Association="Self.FK__rental__IdEmploy__48C5B0DD">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="rental" EntitySet="rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pavilions__IdPav__44F51FF9" Association="Self.FK__pavilions__IdPav__44F51FF9">
+            <End Role="statusPavilions" EntitySet="statusPavilions" />
+            <End Role="pavilions" EntitySet="pavilions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pavilions__IdSM__4400FBC0" Association="Self.FK__pavilions__IdSM__4400FBC0">
+            <End Role="shoppingMalls" EntitySet="shoppingMalls" />
+            <End Role="pavilions" EntitySet="pavilions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rental__49B9D516" Association="Self.FK__rental__49B9D516">
+            <End Role="pavilions" EntitySet="pavilions" />
+            <End Role="rental" EntitySet="rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rental__IdRental__4AADF94F" Association="Self.FK__rental__IdRental__4AADF94F">
+            <End Role="statusRental" EntitySet="statusRental" />
+            <End Role="rental" EntitySet="rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rental__IdTenats__47D18CA4" Association="Self.FK__rental__IdTenats__47D18CA4">
+            <End Role="tenats" EntitySet="tenats" />
+            <End Role="rental" EntitySet="rental" />
+          </AssociationSet>
+          <AssociationSet Name="FK__shoppingM__IdSMS__3C5FD9F8" Association="Self.FK__shoppingM__IdSMS__3C5FD9F8">
+            <End Role="statusSM" EntitySet="statusSM" />
+            <End Role="shoppingMalls" EntitySet="shoppingMalls" />
+          </AssociationSet>
+          <FunctionImport Name="rental1">
+            <Parameter Name="id_pavilion" Mode="In" Type="String" />
+            <Parameter Name="id_shopping_center" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="RentOrBookPavilion">
+            <Parameter Name="id_pavilion" Mode="In" Type="String" />
+            <Parameter Name="id_shopping_center" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(KingITModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(KingITModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="updateRentalPavilion">
+            <Parameter Name="id_pavilion" Mode="In" Type="String" />
+            <Parameter Name="id_shopping_center" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище KingITModelContainer" CdmEntityContainer="KingITEntities">
+          <EntitySetMapping Name="employee">
+            <EntityTypeMapping TypeName="KingITModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="IdPositions" ColumnName="IdPositions" />
+                <ScalarProperty Name="employeePhone" ColumnName="employeePhone" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pavilions">
+            <EntityTypeMapping TypeName="KingITModel.pavilions">
+              <MappingFragment StoreEntitySet="pavilions">
+                <ScalarProperty Name="IdPavilions" ColumnName="IdPavilions" />
+                <ScalarProperty Name="IdSM" ColumnName="IdSM" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="square" ColumnName="square" />
+                <ScalarProperty Name="costMeter" ColumnName="costMeter" />
+                <ScalarProperty Name="coefficientAddedValue" ColumnName="coefficientAddedValue" />
+                <ScalarProperty Name="IdPavilionsStatus" ColumnName="IdPavilionsStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="positions">
+            <EntityTypeMapping TypeName="KingITModel.positions">
+              <MappingFragment StoreEntitySet="positions">
+                <ScalarProperty Name="IdPositions" ColumnName="IdPositions" />
+                <ScalarProperty Name="namePositions" ColumnName="namePositions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rental">
+            <EntityTypeMapping TypeName="KingITModel.rental">
+              <MappingFragment StoreEntitySet="rental">
+                <ScalarProperty Name="IdRental" ColumnName="IdRental" />
+                <ScalarProperty Name="IdPavilions" ColumnName="IdPavilions" />
+                <ScalarProperty Name="beginLease" ColumnName="beginLease" />
+                <ScalarProperty Name="endLease" ColumnName="endLease" />
+                <ScalarProperty Name="IdTenats" ColumnName="IdTenats" />
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+                <ScalarProperty Name="IdSM" ColumnName="IdSM" />
+                <ScalarProperty Name="IdRentalStatus" ColumnName="IdRentalStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shoppingMalls">
+            <EntityTypeMapping TypeName="KingITModel.shoppingMalls">
+              <MappingFragment StoreEntitySet="shoppingMalls">
+                <ScalarProperty Name="IdSM" ColumnName="IdSM" />
+                <ScalarProperty Name="nameSM" ColumnName="nameSM" />
+                <ScalarProperty Name="numberPavilions" ColumnName="numberPavilions" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="coefficientAddedValue" ColumnName="coefficientAddedValue" />
+                <ScalarProperty Name="numberFloors" ColumnName="numberFloors" />
+                <ScalarProperty Name="IdSMStatus" ColumnName="IdSMStatus" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="statusPavilions">
+            <EntityTypeMapping TypeName="KingITModel.statusPavilions">
+              <MappingFragment StoreEntitySet="statusPavilions">
+                <ScalarProperty Name="IdPavilionsStatus" ColumnName="IdPavilionsStatus" />
+                <ScalarProperty Name="namePavilions" ColumnName="namePavilions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="statusRental">
+            <EntityTypeMapping TypeName="KingITModel.statusRental">
+              <MappingFragment StoreEntitySet="statusRental">
+                <ScalarProperty Name="IdRentalStatus" ColumnName="IdRentalStatus" />
+                <ScalarProperty Name="nameRental" ColumnName="nameRental" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="statusSM">
+            <EntityTypeMapping TypeName="KingITModel.statusSM">
+              <MappingFragment StoreEntitySet="statusSM">
+                <ScalarProperty Name="IdSMStatus" ColumnName="IdSMStatus" />
+                <ScalarProperty Name="nameStatus" ColumnName="nameStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="KingITModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tenats">
+            <EntityTypeMapping TypeName="KingITModel.tenats">
+              <MappingFragment StoreEntitySet="tenats">
+                <ScalarProperty Name="IdTenats" ColumnName="IdTenats" />
+                <ScalarProperty Name="nameFirms" ColumnName="nameFirms" />
+                <ScalarProperty Name="tenatsPhone" ColumnName="tenatsPhone" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Готовая_аренда">
+            <EntityTypeMapping TypeName="KingITModel.Готовая_аренда">
+              <MappingFragment StoreEntitySet="Готовая аренда">
+                <ScalarProperty Name="ID_Аренды" ColumnName="ID Аренды" />
+                <ScalarProperty Name="C__Павильона" ColumnName="№ Павильона" />
+                <ScalarProperty Name="Начало_Аренды" ColumnName="Начало Аренды" />
+                <ScalarProperty Name="Окончание_Аренды" ColumnName="Окончание Аренды" />
+                <ScalarProperty Name="ID_Арендатора" ColumnName="ID Арендатора" />
+                <ScalarProperty Name="ID_Сотрудник" ColumnName="ID Сотрудник" />
+                <ScalarProperty Name="ID_ТЦ" ColumnName="ID ТЦ" />
+                <ScalarProperty Name="Статус_ТЦ" ColumnName="Статус ТЦ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Готовое_ТЦ">
+            <EntityTypeMapping TypeName="KingITModel.Готовое_ТЦ">
+              <MappingFragment StoreEntitySet="Готовое ТЦ">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Кол__Повильонов" ColumnName="Кол  Повильонов" />
+                <ScalarProperty Name="Город" ColumnName="Город" />
+                <ScalarProperty Name="Стоимость" ColumnName="Стоимость" />
+                <ScalarProperty Name="Кооф__Добавочной_Стоимости" ColumnName="Кооф  Добавочной Стоимости" />
+                <ScalarProperty Name="Этажность" ColumnName="Этажность" />
+                <ScalarProperty Name="Статус_ТЦ" ColumnName="Статус ТЦ" />
+                <ScalarProperty Name="Фото" ColumnName="Фото" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Готовые_павильоны">
+            <EntityTypeMapping TypeName="KingITModel.Готовые_павильоны">
+              <MappingFragment StoreEntitySet="Готовые павильоны">
+                <ScalarProperty Name="C__Павильона" ColumnName="№ Павильона" />
+                <ScalarProperty Name="ID_Павильона" ColumnName="ID Павильона" />
+                <ScalarProperty Name="Этаж" ColumnName="Этаж" />
+                <ScalarProperty Name="Площадь" ColumnName="Площадь" />
+                <ScalarProperty Name="Стоимость_за_кв_м" ColumnName="Стоимость за кв м" />
+                <ScalarProperty Name="Кооф__Добавочной_стоимости" ColumnName="Кооф  Добавочной стоимости" />
+                <ScalarProperty Name="Статус_Павильона" ColumnName="Статус Павильона" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="rental1" FunctionName="Хранилище KingITModel.rental1" />
+          <FunctionImportMapping FunctionImportName="RentOrBookPavilion" FunctionName="Хранилище KingITModel.RentOrBookPavilion" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище KingITModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище KingITModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище KingITModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище KingITModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KingITModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище KingITModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KingITModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище KingITModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище KingITModel.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="updateRentalPavilion" FunctionName="Хранилище KingITModel.updateRentalPavilion" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

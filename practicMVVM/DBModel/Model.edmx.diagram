@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ae16e59055b848af97c8a9c00fdcddad" Name="Diagram1">
+        <EntityTypeShape EntityType="KingITModel.employee" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.pavilions" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.positions" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.rental" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.shoppingMalls" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.statusPavilions" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.statusRental" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.statusSM" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.tenats" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.Готовая_аренда" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.Готовое_ТЦ" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KingITModel.Готовые_павильоны" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="KingITModel.FK__employee__IdPosi__41248F15" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITModel.FK__rental__IdEmploy__48C5B0DD" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITModel.FK__pavilions__IdPav__44F51FF9" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITModel.FK__pavilions__IdSM__4400FBC0" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITModel.FK__rental__49B9D516" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITModel.FK__rental__IdRental__4AADF94F" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITModel.FK__rental__IdTenats__47D18CA4" ManuallyRouted="false" />
+        <AssociationConnector Association="KingITModel.FK__shoppingM__IdSMS__3C5FD9F8" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
